@@ -33,14 +33,13 @@ export default function TodoList() {
 	};
 
 	const handleItemClicked = (id) => {
-		setItems(
-			Items.map((item) => {
-				
-				if (item.id === id) item.isCompleted = !item.isCompleted;
-				return item;
-			})
-		);
+		const changeCompleted = Items.map((item) => {
+			if (item.id === id) item.isCompleted = !item.isCompleted;
+			return item;
+		});
+		setItems(changeCompleted);
 		console.log(id);
+		console.log(Items);
 	};
 
 	console.log(Items);
