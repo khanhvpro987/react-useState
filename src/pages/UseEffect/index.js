@@ -1,16 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from 'react';
 
 export default function Home() {
+	const [countdown, setCountdown] = useState(100);
+	const [numberType, setNumberType] = useState('Even Number');
 
-	const [countdown, setCountdown] = useState(100)
+	useEffect(() => {
+		const timeId = setInterval(() => {
+			setCountdown((prevCount) => prevCount - 1);
+		}, 1000);
+		console.log('Callback Called');
+		return () => clearInterval(timeId);
+	}, []);
 
-	setInterval(() => {
-		setCountdown(countdown - 1)
-	},1000)
+	useEffect(() => {
+		if (countdown % 2 === 0) setNumberType('Even Number');
+		else setNumberType('Odd Number');
+		console.log('Callback2 Called');
+	}, [countdown]);
 
+	// setInterval(() => {
+	// 	setCountdown(countdown - 1);
+	// }, 1000);
 
 	return (
-		<>
+		<div style={{ padding: '10px 32px' }}>
 			<h1>useEffect</h1>
 			<div>
 				<ol>
@@ -22,23 +35,27 @@ export default function Home() {
 						<li>Cleanup</li>
 					</ul>
 					<li>
-						useEffect callback luôn được gọi sau khi component mounted
+						useEffect callback luôn được gọi sau khi component
+						mounted
 					</li>
 					<li>Các trường hợp useEffect</li>
 					<ul>
 						<li>Không truyền Deps: useEffect(callback).</li>
 						<ul>
 							<li>
-								Callback luôn được gọi mỗi khi component re-render.
+								Callback luôn được gọi mỗi khi component
+								re-render.
 							</li>
 							<li>
-								Gọi callback sau khi component thêm element vào DOM.
+								Gọi callback sau khi component thêm element vào
+								DOM.
 							</li>
 						</ul>
 						<li>Truyền Deps rỗng: useEffect(callback,[]) </li>
 						<ul>
 							<li>
-								Chỉ gọi callback một lần sau khi component mounted
+								Chỉ gọi callback một lần sau khi component
+								mounted
 							</li>
 						</ul>
 						<li>
@@ -51,10 +68,9 @@ export default function Home() {
 				</ol>
 			</div>
 			<div>
-				<h1>
-					{countdown}
-				</h1>
+				<h1>{countdown}</h1>
+				<h1>{numberType}</h1>
 			</div>
-		</>
-	)
+		</div>
+	);
 }
