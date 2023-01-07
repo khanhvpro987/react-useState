@@ -38,8 +38,6 @@ export default function TodoList() {
 			return item;
 		});
 		setItems(changeCompleted);
-		console.log(id);
-		console.log(Items);
 	};
 
 	console.log(Items);

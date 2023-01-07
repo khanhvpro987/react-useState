@@ -8,15 +8,21 @@ function App() {
 			<div className='App'>
 				<Routes>
 					{publicRoutes.map((route, index) => {
+						let Layout = DefaultLayout;
+
+						if (route.layout) {
+							Layout = route.layout;
+						}
+
 						const Page = route.component;
 						return (
 							<Route
 								key={index}
 								path={route.path}
 								element={
-									<DefaultLayout>
+									<Layout>
 										<Page />
-									</DefaultLayout>
+									</Layout>
 								}
 							/>
 						);
